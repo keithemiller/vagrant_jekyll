@@ -11,10 +11,10 @@ Vagrant.configure("2") do |config|
   config.vm.box_check_update = true
 
   ## Local forwarded port not forwarded to external ports
-  config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 4000, host: 4000
 
   ## Shared folder to virtual machine 
-  config.vm.synced_folder "shared_data", "/vagrant_data"
+  config.vm.synced_folder "../morgan_site", "/vagrant_data"
 
 
   ## Provider specific options
@@ -31,6 +31,9 @@ Vagrant.configure("2") do |config|
   end
   
   ## PROVISIONING
+  ## Updates and Installation via shell
   config.vm.provision "shell", path: "provision.sh"
+  ## Add bashrc
+  config.vm.provision "file", source: ".bashrc", destination: "$HOME/.bashrc"
 
 end
